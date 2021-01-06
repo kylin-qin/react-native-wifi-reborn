@@ -346,6 +346,40 @@ public class RNWifiModule extends ReactContextBaseJavaModule {
         promise.resolve(stringIP);
     }
 
+    @ReactMethod
+    public void getGatewayIPAddress(final Promise promise) throws Exception {
+        new Thread(new Runnable() {
+            public void run() {
+                try {
+                    DhcpInfo dhcpInfo = wifi.getDhcpInfo();
+                    int gatewayIPInt = dhcpInfo.gateway;
+                    String gatewayIP = String.format(
+                      "%d.%d.%d.%d",
+                      ((gatewayIPInt) & 0xFF),
+                      ((gatewayIPInt >> 8 ) & 0xFF),
+                      ((gatewayIPInt >> 16) & 0xFF),
+                      ((gatewayIPInt >> 24) & 0xFF)
+                    );
+                    promise.resolve(gatewayIP);
+                } catch (Exception e) {
+                    promise.resolve(null);
+                }
+            }
+        }).start();
+    }
+
+    @ReactMethod
+    public void getMacAddress(final Promise promise) {
+        final WifiInfo info = wifi.getConnectionInfo();
+        String macAddress = "";
+        if (info != null) {
+            macAddress = wifiInfo.getMacAddress();
+            promise.resolve(macAddress);
+        } else {
+            promise.resolve(null);
+        }
+    }
+
     /**
      * This method will remove the wifi network configuration.
      * If you are connected to that network, it will disconnect.

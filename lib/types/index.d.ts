@@ -204,6 +204,26 @@ declare module 'react-native-wifi-reborn' {
      */
     export function getIP(): Promise<string>;
 
+    /**
+     * Returns the gatewayIPAddress of the currently connected WiFi network.
+     */
+    export function getGatewayIPAddress(): Promise<string>;
+    
+    /**
+     * Returns the gatewayIPAddress of the currently connected WiFi network.
+     */
+    export function getGatewayIPAddress(): Promise<string>;
+
+    /**
+     * Returns the macAddress of the currently connected WiFi network.
+     */
+    export function getMacAddress(): Promise<string>;
+
+    /**
+     * Returns the linkSpeed/Mbps of the currently connected WiFi network.
+     */
+    export function getLinkSpeed(): Promise<number>; 
+
     export const IS_REMOVE_WIFI_NETWORK_ERRORS = {
         /**
          * Starting android 6, location permission needs to be granted for wifi scanning.
