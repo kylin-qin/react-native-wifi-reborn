@@ -9,6 +9,7 @@ import android.net.NetworkCapabilities;
 import android.net.NetworkInfo;
 import android.net.NetworkRequest;
 import android.net.wifi.ScanResult;
+import android.net.DhcpInfo;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Build;
@@ -354,11 +355,11 @@ public class RNWifiModule extends ReactContextBaseJavaModule {
                     DhcpInfo dhcpInfo = wifi.getDhcpInfo();
                     int gatewayIPInt = dhcpInfo.gateway;
                     String gatewayIP = String.format(
-                      "%d.%d.%d.%d",
-                      ((gatewayIPInt) & 0xFF),
-                      ((gatewayIPInt >> 8 ) & 0xFF),
-                      ((gatewayIPInt >> 16) & 0xFF),
-                      ((gatewayIPInt >> 24) & 0xFF)
+                        "%d.%d.%d.%d",
+                        ((gatewayIPInt) & 0xFF),
+                        ((gatewayIPInt >> 8 ) & 0xFF),
+                        ((gatewayIPInt >> 16) & 0xFF),
+                        ((gatewayIPInt >> 24) & 0xFF)
                     );
                     promise.resolve(gatewayIP);
                 } catch (Exception e) {
@@ -373,10 +374,22 @@ public class RNWifiModule extends ReactContextBaseJavaModule {
         final WifiInfo info = wifi.getConnectionInfo();
         String macAddress = "";
         if (info != null) {
-            macAddress = wifiInfo.getMacAddress();
+            macAddress = info.getMacAddress();
             promise.resolve(macAddress);
         } else {
             promise.resolve(null);
+        }
+    }
+
+    @ReactMethod
+    public void getLinkSpeed(final Promise promise) {
+        final WifiInfo info = wifi.getConnectionInfo();
+        int speed = 0;
+        if (info != null) {
+            speed = info.getLinkSpeed();
+            promise.resolve(speed);
+        } else {
+            promise.resolve(0);
         }
     }
 
