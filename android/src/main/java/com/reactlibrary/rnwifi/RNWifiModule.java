@@ -393,6 +393,24 @@ public class RNWifiModule extends ReactContextBaseJavaModule {
         }
     }
 
+    @ReactMethod
+    public void getDns(final Promise promise) {
+        try {
+            DhcpInfo dhcpInfo = wifi.getDhcpInfo();
+            int dns1Int = dhcpInfo.dns1;
+            String dns1 = String.format(
+                "%d.%d.%d.%d",
+                ((dns1Int) & 0xFF),
+                ((dns1Int >> 8 ) & 0xFF),
+                ((dns1Int >> 16) & 0xFF),
+                ((dns1Int >> 24) & 0xFF)
+            );
+            promise.resolve(dns1);
+        } catch (Exception e) {
+            promise.resolve(null);
+        }
+    }
+
     /**
      * This method will remove the wifi network configuration.
      * If you are connected to that network, it will disconnect.

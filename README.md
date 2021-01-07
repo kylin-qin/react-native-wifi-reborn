@@ -87,7 +87,7 @@ This library is correctly autolinked on React Native 60+ 🎉.
 
 1. Open up `android/app/src/main/java/[...]/MainActivity.java`
 
-- Add `import com.reactlibrary.rnwifi.RNWifiPackage;` to the imports at the top of the file
+- Add `import com.reactlibrary.RNWifiPackage;` to the imports at the top of the file
 - Add `new RNWifiPackage()` to the list returned by the `getPackages()` method
 
 2. Append the following lines to `android/settings.gradle`:
@@ -275,6 +275,18 @@ Returns the frequency of the currently connected WiFi network.
 
 ### `getIP(): Promise<number>`
 Returns the IP of the currently connected WiFi network.
+
+### `getGatewayIPAddress(): Promise<string>`
+Returns the gatewayIPAddress of the currently connected WiFi network.
+
+### `getMacAddress(): Promise<string>`
+Returns the macAddress of the currently connected WiFi network.
+
+### `getLinkSpeed(): Promise<number>`
+Returns the linkSpeed/Mbps of the currently connected WiFi network
+
+### `function getDns(): Promise<String>`
+Returns the nds1 of the currently connected WiFi network
 
 ### `isRemoveWifiNetwork(ssid: String): Promise<boolean>`
 This method will remove the wifi network configuration.

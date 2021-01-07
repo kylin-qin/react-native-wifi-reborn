@@ -208,7 +208,7 @@ declare module 'react-native-wifi-reborn' {
      * Returns the gatewayIPAddress of the currently connected WiFi network.
      */
     export function getGatewayIPAddress(): Promise<string>;
-    
+
     /**
      * Returns the macAddress of the currently connected WiFi network.
      */
@@ -218,6 +218,11 @@ declare module 'react-native-wifi-reborn' {
      * Returns the linkSpeed/Mbps of the currently connected WiFi network.
      */
     export function getLinkSpeed(): Promise<number>;
+
+    /**
+     * Returns the nds1 of the currently connected WiFi network.
+     */
+    export function getDns(): Promise<String>;
 
     export const IS_REMOVE_WIFI_NETWORK_ERRORS = {
         /**
